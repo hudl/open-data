@@ -1,0 +1,33 @@
+name: Required Labels
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  labels-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Type label
+        uses: mheap/github-action-required-labels@388fd6af37b34cdfe5a23b37060e763217e58b03
+        with:
+          mode: exactly
+          count: 1
+          labels: 'Type: Enhancement, Type: Fix, Type: Foundational, Type: Hotfix'
+
+      - name: Check Team label
+        uses: mheap/github-action-required-labels@388fd6af37b34cdfe5a23b37060e763217e58b03
+        with:
+          mode: exactly
+          count: 1
+          labels: 'Team: Web Stack, Team: Business Operations, Team: Core Data, Team: Core Video, Team: CP, Team: CP NAS, Team: Focus, Team: CP GF&R, Team: CP AP, Team: AML, Team: Data Generation, Team: Content Generation, Team: Level Up, Team: Front-End Platform, Team: Mobile Platform, Team: OCTO, Team: CP GFM, Team: Security, Team: Platform Ops, Team: AI Enablement, Team: Automation, Team: Performance Analysis, Team: Operations Suite, Team: Device Software, Team: Fan Growth, Team: UX, Team: Brand, Team: Data Platform, Team: Foundational Data Model, Team: Insights'
+
+      - name: Check AI label
+        uses: mheap/github-action-required-labels@388fd6af37b34cdfe5a23b37060e763217e58b03
+        with:
+          mode: minimum
+          count: 1
+          labels: 'AI: None, AI: Devin - Agent, AI: Devin - Docs, AI: Claude - Agent, AI: Claude - Chat, AI: Jetbrains - Agent, AI: Jetbrains - Chat, AI: Copilot - Agent, AI: Copilot - Chat, AI: Gemini - Agent, AI: Gemini - Chat, AI: Cursor, AI: Ratchet - Agent, AI: Other - Agent, AI: Other - Chat'
