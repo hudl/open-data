@@ -2,7 +2,7 @@
 
 Event and tracking data from Hudl Wyscout for a selection of matches.
 
-> **Status:** work in progress. The files described below are not published yet.
+> **Status:** work in progress. The event files are available. The tracking files are not published yet.
 
 ## Matches
 
