@@ -27,3 +27,34 @@ The data is provided as JSON files exported from the StatsBomb Data API, in the 
 To find the data for a match, look up the competition and season in `competitions.json`, then find the match in the matching file in `matches`. Use its `match_id` to open the files in `events`, `lineups` and `three-sixty`.
 
 The [StatsBomb Open Data Specification v1.1](./doc/StatsBomb%20Open%20Data%20Specification%20v1.1.pdf) gives an overview of all data types, event types and pitch coordinates.
+
+## Downloading only some of the data
+
+The full repository is large (the StatsBomb data alone is about 15 GB). If you need data from only one product, use a partial clone with a sparse checkout. Git then downloads only the files in the folders that you choose.
+
+You need Git 2.27 or later.
+
+### Wyscout data only
+
+```sh
+git clone --depth 1 --filter=blob:none --sparse https://github.com/hudl/open-data.git
+cd open-data
+git sparse-checkout set data/wyscout
+```
+
+### StatsBomb data only
+
+This includes all the StatsBomb folders and leaves out `data/wyscout`:
+
+```sh
+git clone --depth 1 --filter=blob:none --sparse https://github.com/hudl/open-data.git
+cd open-data
+git sparse-checkout set data/events data/lineups data/matches data/three-sixty
+```
+
+### Notes
+
+* The files at the top level of the repository and directly in `data/` (for example `data/competitions.json`) are always included.
+* `--depth 1` downloads only the latest version. Remove it if you need the history.
+* To change the folders later, run `git sparse-checkout set` again with the new list. Git downloads the files that are missing.
+* To get all the data, run `git sparse-checkout disable`.
